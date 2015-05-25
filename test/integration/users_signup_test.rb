@@ -8,9 +8,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, user: { name: "",
                                email: "test@invalid",
                                password: "foox",
-                               password_confirmation: "foox"}
+                               password_confirmation: "foox1"}
     end
     assert_template 'users/new'
+    assert_select 'div#error_explanation'
+    assert_select 'div#error_explanation li', 4
   end
 
   test "valid user sign up" do
@@ -22,6 +24,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                password_confirmation: "Amitabh11"}
     end
     assert_template 'users/show'
+    assert_select 'div.flash-message'
   end
+
 
 end
