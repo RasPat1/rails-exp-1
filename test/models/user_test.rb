@@ -37,4 +37,10 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
     end
   end
+
+  test "email should be downcased before save" do
+    @user.email = "USER@example.com"
+    @user.save
+    assert @user.email == "user@example.com"
+  end
 end
